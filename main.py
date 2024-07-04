@@ -25,7 +25,7 @@ class AutoEnter:
         
     def readConfig(self):
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        config.read('config.ini', encoding='utf-8')
         
         name = config['Account']['name']
         surname = config['Account']['surname']
@@ -74,34 +74,33 @@ class AutoEnter:
         sleep(5)
         
 
+        # Continue with browser
         ActionChains(driver).send_keys(Keys.TAB).perform()
         ActionChains(driver).send_keys(Keys.ENTER).perform()
-
-
-        sleep(10)
+        sleep(20)
         
-        for i in range(5):
-            ActionChains(driver).send_keys(Keys.TAB).perform()
-            sleep(0.2)
-        ActionChains(driver).send_keys("Eren").perform()
-        sleep(0.2)
-        ActionChains(driver).send_keys(" Akkoç").perform()
-        print("[DRIVER] Name entered...")
-        sleep(0.4)
+        # Enter name
+        for i in range(20): 
+            ActionChains(driver).send_keys(Keys.BACK_SPACE).perform()
+            sleep(0.1)
+        ActionChains(driver).send_keys(self.nameSurname).perform()
+        sleep(1)
+        
+        # Close camera and mic. popups
         ActionChains(driver).send_keys(Keys.TAB).perform()
-        sleep(0.2)
-        ActionChains(driver).send_keys(Keys.ENTER).perform()
-        print("[DRIVER] Mic. button clicked...")
-        sleep(0.4)
-        ActionChains(driver).send_keys(Keys.RIGHT).perform()
-        sleep(0.2)
-        ActionChains(driver).send_keys(Keys.ENTER).perform()
-        print("[DRIVER] Camera button clicked...")
-        sleep(0.4)
+        # ActionChains(driver).send_keys(Keys.ENTER).perform() # Close camera
         ActionChains(driver).send_keys(Keys.TAB).perform()
         ActionChains(driver).send_keys(Keys.TAB).perform()
+        ActionChains(driver).send_keys(Keys.TAB).perform()
+        ActionChains(driver).send_keys(Keys.ENTER).perform() # Close mic
+        sleep(1)
+        
+        # Join the lesson
+        ActionChains(driver).send_keys(Keys.TAB).perform()
+        ActionChains(driver).send_keys(Keys.TAB).perform()
         ActionChains(driver).send_keys(Keys.ENTER).perform()
-        print("[DRIVER] Join button clicked...")
+        sleep(1)
+        
         self.isEntered = True
 
     def exitLesson(self):
