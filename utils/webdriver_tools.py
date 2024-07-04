@@ -1,6 +1,8 @@
+from time import sleep
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 
 def check_element(driver, type_, path):
@@ -100,3 +102,6 @@ def waitElement(driver, type_, path):
     elif type_ == "css":
         WebDriverWait(driver, wait_time).until(EC.presence_of_element_located((By.CSS_SELECTOR, path)))
     
+def actionChains(driver, keys):
+    ActionChains(driver).send_keys(keys).perform()
+    sleep(2)
