@@ -1,24 +1,25 @@
+import os
+import logging
 import datetime
 import configparser
-import logging
-import os
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from utils.webdriver_tools import actionChains
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoAlertPresentException, TimeoutException
-from webdriver_manager.chrome import ChromeDriverManager
 
-# Logging configuration
+# Check if the 'logs' directory exists, create it if not
 if not os.path.exists('logs'):
     os.makedirs('logs')
-    
+
+# Configure logging settings
 logging.basicConfig(
     filename=os.path.join('logs', 'automation_log.log'),
     level=logging.INFO,
@@ -27,14 +28,15 @@ logging.basicConfig(
 
 class AutoEnter:
     def __init__(self):
-        self.link = None
-        self.enterTimes = []
-        self.exitTimes = []
-        self.driver = None
-        self.isEntered = False
-        self.nameSurname = ""
-        self.tryNow = False
-        
+        self.link = None  # Link for the lesson
+        self.enterTimes = []  # Times to enter the lesson
+        self.exitTimes = []  # Times to exit the lesson
+        self.driver = None  # WebDriver instance
+        self.isEntered = False  # Flag to check if already entered
+        self.nameSurname = ""  # User's full name
+        self.tryNow = False  # Flag to try entering immediately
+        self.lastEntered = None  # Last entered time
+
     def readConfig(self):
         try:
             logging.info("Reading configuration file...")
@@ -43,15 +45,16 @@ class AutoEnter:
             
             name = config['Account']['name']
             surname = config['Account']['surname']
-            self.nameSurname = name + " " + surname
+            self.nameSurname = name + " " + surname  # Concatenate name and surname
             
             enter_times = config['Times']['enter_times'].replace(" ","").split(",")
             exit_times = config['Times']['exit_times'].replace(" ","").split(",")
             
-            self.link = config['Lesson']['link'].replace('"', '')
+            self.link = config['Lesson']['link'].replace('"', '')  # Read the lesson link
             
-            self.tryNow = config.getboolean('Settings', 'tryNow')
+            self.tryNow = config.getboolean('Settings', 'tryNow')  # Read the tryNow setting
             
+            # Parse enter and exit times
             for i in range(len(enter_times)):
                 hour, minute = map(int, enter_times[i].split("."))
                 self.enterTimes.append([hour, minute])
@@ -170,6 +173,7 @@ class AutoEnter:
             now = datetime.datetime.now()
             if [now.hour, now.minute] in self.enterTimes:
                 logging.info(f"Current time {now.hour}:{now.minute} matches enter time. Entering the lesson.")
+                self.lastEntered = now
                 self.enterLesson()
             if [now.hour, now.minute] in self.exitTimes and self.isEntered:
                 logging.info(f"Current time {now.hour}:{now.minute} matches exit time. Exiting the lesson.")
