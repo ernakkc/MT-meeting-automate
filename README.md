@@ -1,38 +1,78 @@
-<hr>
-<h1>MT Meeting Automation</h1>
-<p>MT Meeting Automation is a Python-based tool designed to automate the process of joining and exiting Microsoft Teams meetings at scheduled times. The tool uses Selenium WebDriver to interact with the Teams web interface and can be configured to join and leave meetings based on a schedule specified in a configuration file.</p>
+# 🤖 Microsoft Teams Meeting Automation
 
-<h2>Features</h2>
-<ul>
-  <li><strong>Automated Meeting Entry and Exit:</strong> Join and leave Microsoft Teams meetings automatically at specified times.</li>
-  <li><strong>Configuration via INI File:</strong> Easily customize your schedule and account details using a simple INI configuration file.</li>
-  <li><strong>Logging:</strong> Detailed logging of all actions and events for troubleshooting and record-keeping.</li>
-  <li><strong>Customizable WebDriver Options:</strong> Pre-configured Chrome WebDriver with options to handle notifications, popups, and media permissions.</li>
-</ul>
+<div align="center">
 
-<h2>Installation</h2>
+![Python](https://img.shields.io/badge/Python-3.6+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-WebDriver-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
+![MS Teams](https://img.shields.io/badge/Microsoft_Teams-Automation-6264A7?style=for-the-badge&logo=microsoftteams&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
-<h3>Prerequisites</h3>
-<ul>
-  <li>Python 3.6+</li>
-  <li>Google Chrome browser installed</li>
-</ul>
+*Automated attendance system for Microsoft Teams meetings with intelligent scheduling*
 
-<h3>Dependencies</h3>
-<p>All required Python packages are listed in <code>requirements.txt</code>. To install the dependencies, run:</p>
-<pre><code class="!whitespace-pre hljs language-sh">pip install -r requirements.txt</code></pre>
+[⚡ Quick Start](#-quick-start) • [⚙️ Configuration](#️-configuration) • [📖 Usage](#-usage) • [⚠️ Disclaimer](#️-disclaimer)
 
-<h3>Required Files</h3>
-<p>Ensure the following files are in your project directory:</p>
-<ul>
-  <li><code>main.py</code>: The main script for the automation tool.</li>
-  <li><code>config.ini</code>: The configuration file with your account details, schedule, and settings.</li>
-  <li><code>requirements.txt</code>: List of Python package dependencies.</li>
-</ul>
+</div>
 
-<h2>Configuration</h2>
-<p>The behavior of the tool is controlled via the <code>config.ini</code> file. Below is a sample configuration:</p>
-<pre><code class="!whitespace-pre hljs language-ini">[Account]
+---
+
+## ⚠️ Disclaimer
+
+**Important Legal & Ethical Notice**:
+
+This tool is designed for **legitimate educational purposes** and personal time management. Users must:
+- ✅ Have permission to automate their meeting attendance
+- ✅ Use only with their own accounts
+- ✅ Comply with institutional/organizational policies
+- ✅ Respect meeting privacy and attendance requirements
+- ❌ **NOT** use for fraudulent attendance
+- ❌ **NOT** violate academic integrity policies
+
+**The developer assumes NO responsibility for misuse. Use at your own risk.**
+
+---
+
+## 📖 Overview
+
+MT Meeting Automation is an intelligent Python-based tool that automates Microsoft Teams meeting attendance. Perfect for managing multiple recurring meetings with complex schedules. The tool uses Selenium WebDriver to interact with Teams web interface and provides scheduled join/leave functionality.
+
+## ✨ Features
+
+- 🕐 **Smart Scheduling**: Join and leave meetings at precise times
+- 📝 **INI Configuration**: Simple configuration file for easy setup
+- 📊 **Detailed Logging**: Complete activity logs for troubleshooting
+- 🌐 **Chrome Integration**: Automated browser handling with custom options
+- 🔕 **Notification Management**: Automatic popup and permission handling
+- 🎯 **Test Mode**: Instant join for testing configuration
+- 👤 **Identity Management**: Automatic name entry for meetings
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Python 3.6+** installed
+- **Google Chrome** browser
+- Active **Microsoft Teams** account
+- Meeting link(s) to join
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/MT-meeting-automate.git
+   cd MT-meeting-automate
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+## ⚙️ Configuration
+
+### config.ini Setup
+
+The tool's behavior is controlled via `config.ini`. Create this file in the project root:
+
+```ini
+[Account]
 name = Eren
 surname = Akkoç
 
@@ -44,12 +84,48 @@ exit_times = 10.20, 11.50, 13.20, 14.50
 tryNow = False
 
 [Lesson]
-link = "https://teams.microsoft.com/l/meetup-join/example_link"</code></pre>
+link = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_..."
+```
 
-<h3>Configuration Details</h3>
-<ul>
-  <li><strong>Account:</strong>
-    <ul>
+### Configuration Parameters
+
+#### 📋 Account Section
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `name` | Your first name (displayed in Teams) | `Eren` |
+| `surname` | Your last name | `Akkoç` |
+
+#### ⏰ Times Section
+| Parameter | Description | Format |
+|-----------|-------------|--------|
+| `enter_times` | Join meeting times | `HH.MM` (comma-separated) |
+| `exit_times` | Leave meeting times | `HH.MM` (comma-separated) |
+
+**Example Schedule**:
+```ini
+enter_times = 08.00, 09.30, 11.00, 13.00
+exit_times = 08.50, 10.20, 11.50, 13.50
+```
+
+#### ⚙️ Settings Section
+| Parameter | Description | Values |
+|-----------|-------------|--------|
+| `tryNow` | Test mode - join immediately | `True` / `False` |
+
+**Use Cases**:
+- `tryNow = True` → Instant join for testing
+- `tryNow = False` → Scheduled operation (production)
+
+#### 🔗 Lesson Section
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `link` | Microsoft Teams meeting URL | Full meeting link |
+
+**Getting Meeting Link**:
+1. Open Teams meeting invitation
+2. Click **"Join Microsoft Teams Meeting"**
+3. Copy the full URL
+4. Paste into config.ini (keep quotes)ul>
       <li><code>name</code>: Your first name.</li>
       <li><code>surname</code>: Your surname.</li>
     </ul>
@@ -72,38 +148,314 @@ link = "https://teams.microsoft.com/l/meetup-join/example_link"</code></pre>
   </li>
 </ul>
 
-<h2>Usage</h2>
-<p>To start the automation tool, simply run the <code>main.py</code> script:</p>
-<pre><code class="!whitespace-pre hljs language-sh">python main.py</code></pre>
-<p>The tool will read the configuration file, set up the Chrome WebDriver, and begin monitoring the schedule to join and leave meetings at the specified times.</p>
+## 📖 Usage
 
-<h3>Logging</h3>
-<p>Logs are stored in the <code>logs</code> directory with detailed information about the program's actions and any errors encountered. The log file is named <code>automation_log.log</code>.</p>
+### Running the Automation
 
-<h2>Code Overview</h2>
-<h3>main.py</h3>
-<p>The <code>main.py</code> script contains the <code>AutoEnter</code> class, which handles reading the configuration file, setting up the WebDriver, and performing the automated actions.</p>
-<ul>
-  <li><strong>readConfig</strong>: Reads and parses the configuration file.</li>
-  <li><strong>setDriver</strong>: Sets up the Chrome WebDriver with the necessary options.</li>
-  <li><strong>enterLesson</strong>: Joins the Microsoft Teams meeting.</li>
-  <li><strong>exitLesson</strong>: Leaves the Microsoft Teams meeting.</li>
-  <li><strong>main</strong>: The main loop that monitors the time and triggers the <code>enterLesson</code> and <code>exitLesson</code> methods at the specified times.</li>
-</ul>
+```bash
+# Start the automation
+python main.py
+```
 
-<h2>Dependencies</h2>
-<p>Make sure to include all required dependencies in <code>requirements.txt</code>:</p>
-<pre><code class="!whitespace-pre hljs language-txt">webdriver-manager
-selenium
-configparser</code></pre>
-<p>If you discover any missing dependencies during setup, add them to this list and run <code>pip install -r requirements.txt</code> again.</p>
+The tool will:
+1. ✅ Read configuration from `config.ini`
+2. ✅ Initialize Chrome WebDriver
+3. ✅ Monitor system time
+4. ✅ Join meetings at `enter_times`
+5. ✅ Leave meetings at `exit_times`
 
-<h2>Contributing</h2>
-<p>Contributions are welcome! If you find a bug or have a feature request, please open an issue or submit a pull request on GitHub.</p>
+### Test Mode
 
-<h2>License</h2>
-<p>This project is licensed under the MIT License. See the <code>LICENSE</code> file for details.</p>
+To test your configuration immediately:
 
-<h2>Acknowledgments</h2>
-<p>Special thanks to the creators of Selenium and WebDriver Manager for their fantastic tools that make this project possible.</p>
-<hr>
+```ini
+[Settings]
+tryNow = True
+```
+
+Then run:
+```bash
+python main.py
+```
+
+The tool will join the meeting instantly without waiting for scheduled time.
+
+### Production Mode
+
+For scheduled operation:
+
+```ini
+[Settings]
+tryNow = False
+```
+
+The tool will wait until scheduled times to join/leave meetings.
+
+### Logging
+
+All activities are logged to `logs/automation_log.log`:
+
+```
+2024-01-15 09:00:00 - INFO - Joining meeting...
+2024-01-15 09:00:15 - INFO - Successfully joined meeting
+2024-01-15 10:20:00 - INFO - Leaving meeting...
+2024-01-15 10:20:05 - INFO - Successfully left meeting
+```
+
+**Log Features**:
+- 📝 Timestamped entries
+- 🔍 Detailed action tracking
+- ⚠️ Error reporting
+- 📊 Session statistics
+
+## 🏗️ Project Structure
+
+```
+MT-meeting-automate/
+├── main.py                  # Main automation script
+├── config.ini              # Configuration file
+├── requirements.txt        # Python dependencies
+├── README.md              # This documentation
+├── LICENSE                # MIT License
+└── logs/                  # Log directory
+    └── automation_log.log # Activity logs
+```
+
+## 🔧 Code Overview
+
+### AutoEnter Class
+
+The main automation class with key methods:
+
+#### `readConfig()`
+Reads and parses `config.ini` file:
+```python
+config = configparser.ConfigParser()
+config.read('config.ini')
+name = config['Account']['name']
+times = config['Times']['enter_times'].split(',')
+```
+
+#### `setDriver()`
+Configures Chrome WebDriver with automation-friendly options:
+```python
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_argument("--disable-notifications")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+```
+
+#### `enterLesson()`
+Joins Microsoft Teams meeting:
+```python
+def enterLesson(self):
+    self.driver.get(self.meeting_link)
+    # Enter name
+    # Click join button
+    # Handle permissions
+```
+
+#### `exitLesson()`
+Leaves the current meeting:
+```python
+def exitLesson(self):
+    # Click leave button
+    # Confirm exit
+    # Close browser
+```
+
+#### `main()`
+Main loop - monitors time and triggers actions:
+```python
+def main(self):
+    while True:
+        current_time = datetime.now().strftime("%H.%M")
+        if current_time in self.enter_times:
+            self.enterLesson()
+        elif current_time in self.exit_times:
+            self.exitLesson()
+        time.sleep(30)  # Check every 30 seconds
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+#### Chrome Driver Not Found
+```bash
+# Solution: Update webdriver-manager
+pip install --upgrade webdriver-manager
+```
+
+#### Meeting Link Invalid
+```
+Error: Unable to navigate to meeting
+Solution: 
+1. Check meeting link format
+2. Ensure link is within quotes in config.ini
+3. Verify meeting hasn't expired
+```
+
+#### Selenium Timeout Errors
+```python
+# Increase wait times in main.py
+from selenium.webdriver.support.ui import WebDriverWait
+wait = WebDriverWait(driver, 20)  # Increase from 10 to 20
+```
+
+#### Browser Opens But Doesn't Join
+```
+Possible causes:
+1. Teams web interface changed (update selectors)
+2. Network connectivity issues
+3. Account authentication required
+```
+
+#### Permission Popups Blocking Automation
+```python
+# Add to Chrome options in setDriver()
+options.add_argument("--use-fake-ui-for-media-stream")
+options.add_experimental_option("prefs", {
+    "profile.default_content_setting_values.media_stream_mic": 1,
+    "profile.default_content_setting_values.media_stream_camera": 1
+})
+```
+
+### Debug Mode
+
+Enable detailed logging:
+
+```python
+# In main.py, add:
+import logging
+logging.basicConfig(
+    level=logging.DEBUG,  # Changed from INFO
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+```
+
+## ⚡ Advanced Usage
+
+### Multiple Meeting Links
+
+For different meetings on different days:
+
+```python
+# Create multiple config files
+config_monday.ini
+config_tuesday.ini
+
+# Run with specific config
+python main.py --config config_monday.ini
+```
+
+### Headless Mode
+
+Run without visible browser:
+
+```python
+# In setDriver() method, add:
+options.add_argument("--headless")
+options.add_argument("--disable-gpu")
+```
+
+### Auto-Start on Boot
+
+#### Windows (Task Scheduler)
+```batch
+# Create startup.bat
+@echo off
+cd C:\path\to\MT-meeting-automate
+python main.py
+```
+
+#### macOS/Linux (cron)
+```bash
+# Add to crontab
+@reboot cd /path/to/MT-meeting-automate && python3 main.py
+```
+
+## 🔒 Security Best Practices
+
+- 🔐 **Never commit** `config.ini` to public repositories
+- 🗝️ Keep meeting links private
+- 🛡️ Use `.gitignore` for sensitive files:
+  ```gitignore
+  config.ini
+  *.log
+  logs/
+  ```
+- 🔄 Regularly update dependencies
+- 🚫 Don't share your automation setup
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+### How to Contribute
+
+1. **Fork the repository**
+2. **Create feature branch**:
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Commit changes**:
+   ```bash
+   git commit -m 'Add AmazingFeature'
+   ```
+4. **Push to branch**:
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. **Open Pull Request**
+
+### Feature Ideas
+
+- 📧 Email notifications for join/leave events
+- 🌐 Web dashboard for schedule management
+- 📱 Mobile app companion
+- 🔔 Discord/Slack integration
+- 📊 Attendance statistics
+- 🎤 Audio/video control options
+- 📅 Calendar integration (Google/Outlook)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2024 Eren Akkoç
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files...
+```
+
+## 👤 Author
+
+**Eren Akkoç**
+- 🌐 GitHub: [@ernakkc](https://github.com/ernakkc)
+- 📧 Email: ern.akkc@gmail.com
+- 💼 LinkedIn: [Eren Akkoç](https://linkedin.com/in/erenakkoc)
+
+## 🙏 Acknowledgments
+
+- **Selenium Project** - Web automation framework
+- **WebDriver Manager** - Automatic driver management
+- **Microsoft Teams** - Meeting platform
+- **Python Community** - Continuous support
+
+---
+
+<div align="center">
+
+**🤖 Automate Your Meeting Attendance! ⏰**
+
+*Remember: Use responsibly and ethically!*
+
+[![GitHub stars](https://img.shields.io/github/stars/ernakkc/MT-meeting-automate?style=social)](https://github.com/ernakkc/MT-meeting-automate)
+[![GitHub forks](https://img.shields.io/github/forks/ernakkc/MT-meeting-automate?style=social)](https://github.com/ernakkc/MT-meeting-automate/fork)
+
+**⚠️ This tool is for legitimate use only. Always comply with your institution's policies. ⚠️**
+
+</div>
